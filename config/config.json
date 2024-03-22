@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "minigarden",
+    "password": "gardening",
+    "database": "minigarden",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "minigarden",
+    "password": "gardening",
+    "database": "minigarden",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "minigarden",
+    "password": "gardening",
+    "database": "minigarden",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
