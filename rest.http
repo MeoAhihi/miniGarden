@@ -1,0 +1,14 @@
+GET http://localhost:3000/ HTTP/1.1
+
+### Register
+POST http://localhost:3000/auth/register HTTP/1.1
+ 
+### Login
+POST http://localhost:3000/auth/login HTTP/1.1
+ 
+### Refresh Token
+POST http://localhost:3000/auth/refresh-token HTTP/1.1
+ 
+### Logout
+DELETE http://localhost:3000/auth/logout HTTP/1.1
+ 
