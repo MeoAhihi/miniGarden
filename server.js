@@ -7,8 +7,10 @@ const AuthRoute = require("./routes/Auth.route");
 
 const app = express();
 
-// MIddlewares
+// Middlewares
 app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 //Routes
 app.use("/auth", AuthRoute);
