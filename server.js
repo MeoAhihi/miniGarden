@@ -3,6 +3,7 @@ const logger = require("morgan");
 const createError = require("http-errors");
 require("dotenv").config();
 
+const { verifyAccessToken } = require("./helpers/jwt_helper");
 const AuthRoute = require("./routes/Auth.route");
 
 const app = express();
@@ -12,6 +13,9 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.get("/", verifyAccessToken, (req, res) => {
+  res.send("hi");
+});
 //Routes
 app.use("/auth", AuthRoute);
 
