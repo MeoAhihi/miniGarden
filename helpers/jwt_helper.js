@@ -1,13 +1,12 @@
 const jwt = require("jsonwebtoken");
 const createError = require("http-errors");
 const client = require("../helpers/init_redis");
-const { token } = require("morgan");
 
 const signAccessToken = (userId) => {
   const payload = {};
   const secret = process.env.ACCESS_TOKEN_SECRET;
   const option = {
-    expiresIn: "15s",
+    expiresIn: "1h",
     issuer: "minigarden.com",
     audience: userId.toString(),
   };
