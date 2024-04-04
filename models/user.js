@@ -55,12 +55,10 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "User",
       hooks: {
-        beforeSave: (user, options) => {
-          console.log("before insert");
-        },
-        afterSave: (user, options) => {
-          console.log("after insert");
-        },
+        beforeSave: async (user, options) => {
+          const salt = await bcrypt.genSalt(10);
+          user.passwordHash = await bcrypt.hash(user.passwordHash, salt);
+        }
       },
     }
   );

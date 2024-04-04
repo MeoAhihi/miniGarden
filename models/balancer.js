@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class ControlUnit extends Model {
+  class Balancer extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,21 +9,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      ControlUnit.belongsTo(models.Device);
-      ControlUnit.belongsTo(models.Stock);
-      ControlUnit.hasMany(models.Command)
+      Balancer.belongsTo(models.Device);
     }
   }
-  ControlUnit.init(
+  Balancer.init(
     {
       DeviceId: DataTypes.INTEGER,
-      name: DataTypes.STRING,
-      StockId: DataTypes.INTEGER,
+      SensorId: DataTypes.INTEGER,
+      ControlUnitId: DataTypes.INTEGER,
+      operator: DataTypes.ENUM("gt", "lt"),
+      threshold: DataTypes.DECIMAL,
     },
     {
       sequelize,
-      modelName: "ControlUnit",
+      modelName: "Balancer",
     }
   );
-  return ControlUnit;
+  return Balancer;
 };

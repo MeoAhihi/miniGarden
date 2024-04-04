@@ -2,27 +2,27 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Devices", {
+    await queryInterface.createTable("Balancers", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      UserId: {
-        allowNull: false,
-        type: Sequelize.UUID,
-      },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      BSmode: {
-        type: Sequelize.ENUM("balancer", "schedule"),
-      },
-      StockId: {
-        allowNull: false,
+      DeviceId: {
         type: Sequelize.INTEGER,
+      },
+      SensorId: {
+        type: Sequelize.INTEGER,
+      },
+      ControlUnitId: {
+        type: Sequelize.INTEGER,
+      },
+      operator: {
+        type: Sequelize.ENUM("gt", "lt"),
+      },
+      threshold: {
+        type: Sequelize.DECIMAL,
       },
       createdAt: {
         allowNull: false,
@@ -35,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Devices");
+    await queryInterface.dropTable("Balancers");
   },
 };

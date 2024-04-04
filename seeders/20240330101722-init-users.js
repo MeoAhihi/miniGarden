@@ -1,5 +1,5 @@
 "use strict";
-
+const models = require("../models");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -12,32 +12,22 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    await queryInterface.bulk("Users", [
-      {
-        username: "FoqAhihi",
-        passwordHash: "",
-        email: DataTypes.STRING,
-        role: DataTypes.ENUM(
-          "user",
-          "admin",
-          "supporter",
-          "operator",
-          "moderator"
-        ),
-        firstName: DataTypes.STRING,
-        lastName: DataTypes.STRING,
-        dateOfBirth: DataTypes.DATE,
-        gender: DataTypes.ENUM("male", "female", "other"),
-        avatarUrl: DataTypes.STRING,
-        phoneNumber: DataTypes.STRING,
-        address: DataTypes.STRING,
-        district: DataTypes.STRING,
-        city: DataTypes.STRING,
-        country: DataTypes.STRING,
-        postalCode: DataTypes.STRING,
-        bio: DataTypes.TEXT,
-      },
-    ]);
+    const user = await models.User.create({
+      username: "FoqAhihi",
+      passwordHash: "0123456789",
+      email: "phong@hmao.com",
+      role: "admin",
+      firstName: "Ly",
+      lastName: "Bi Phong",
+      dateOfBirth: "2000-01-30",
+      gender: "male",
+      phoneNumber: "0835601805",
+    });
+    const device = await models.Device.create({
+      UserId: user.id,
+      name: "ahihi",
+      StockId: 0,
+    });
   },
 
   async down(queryInterface, Sequelize) {
@@ -47,5 +37,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    
   },
 };

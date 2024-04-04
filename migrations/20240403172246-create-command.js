@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('ControlUnitLogs', {
+    await queryInterface.createTable('Commands', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,8 +12,14 @@ module.exports = {
       ControlUnitId: {
         type: Sequelize.INTEGER
       },
-      action: {
-        type: Sequelize.TEXT
+      state: {
+        type: Sequelize.BOOLEAN
+      },
+      emiter: {
+        type: Sequelize.STRING
+      },
+      message: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -26,6 +32,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('ControlUnitLogs');
+    await queryInterface.dropTable('Commands');
   }
 };

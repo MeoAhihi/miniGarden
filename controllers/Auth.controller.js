@@ -1,6 +1,5 @@
 const createError = require("http-errors");
 const { Op } = require("sequelize");
-const bcrypt = require("bcrypt");
 const client = require("../helpers/init_redis");
 
 const models = require("../models");
@@ -14,7 +13,7 @@ const {
 const register = async (req, res, next) => {
   try {
     const result = await authSchema.validateAsync(req.body);
-
+    console.log("first", result);
     const doesExist = await models.User.findOne({
       where: {
         [Op.or]: [{ email: result.email }, { username: result.username }],
@@ -23,11 +22,7 @@ const register = async (req, res, next) => {
     if (doesExist)
       throw createError.Conflict("Email or Username is already registered");
 
-    const salt = await bcrypt.genSalt(10);
-
-    result.passwordHash = await bcrypt.hash(result.password, salt);
-    delete result.password;
-
+    result.passwordHash = result.password;
     const newUser = await models.User.build(result);
     const savedUser = await newUser.save();
 

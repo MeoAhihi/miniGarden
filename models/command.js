@@ -1,7 +1,9 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class ControlUnitLog extends Model {
+  class Command extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -12,15 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       ControlUnitLog.belongsTo(models.ControlUnit);
     }
   }
-  ControlUnitLog.init(
-    {
-      ControlUnitId: DataTypes.INTEGER,
-      action: DataTypes.TEXT,
-    },
-    {
-      sequelize,
-      modelName: "ControlUnitLog",
-    }
-  );
-  return ControlUnitLog;
+  Command.init({
+    ControlUnitId: DataTypes.INTEGER,
+    state: DataTypes.BOOLEAN,
+    emiter: DataTypes.STRING,
+    message: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'Command',
+  });
+  return Command;
 };

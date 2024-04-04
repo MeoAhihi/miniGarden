@@ -13,12 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       Device.belongsTo(models.Stock);
       Device.hasMany(models.Sensor);
       Device.hasMany(models.ControlUnit);
+      Device.hasMany(models.Balancer);
     }
   }
   Device.init(
     {
       UserId: DataTypes.UUID,
       name: DataTypes.STRING,
+      BSmode: DataTypes.ENUM("balancer", "schedule"),
       StockId: DataTypes.INTEGER,
     },
     {

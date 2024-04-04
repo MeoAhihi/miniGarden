@@ -6,12 +6,12 @@ POST http://localhost:3000/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "phonglv@gmail.com",
-    "password": "0835607205",
-    "dateOfBirth": "2003-04-28",
-    "username": "Gulugulu",
+    "email": "nhienlh1@gmail.com",
+    "password": "0770770779",
+    "dateOfBirth": "2001-01-08",
+    "username": "Daisy Ly",
     "firstName": "Ly",
-    "lastName": "Vi Phong"
+    "lastName": "Hong Nhien"
 
 }
  
