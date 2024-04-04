@@ -21,6 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "SensorReading",
+      timestamps: true,
+      updatedAt: false,
     }
   );
   return SensorReading;

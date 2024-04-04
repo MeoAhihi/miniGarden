@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Command extends Model {
     /**
@@ -14,14 +12,19 @@ module.exports = (sequelize, DataTypes) => {
       ControlUnitLog.belongsTo(models.ControlUnit);
     }
   }
-  Command.init({
-    ControlUnitId: DataTypes.INTEGER,
-    state: DataTypes.BOOLEAN,
-    emiter: DataTypes.STRING,
-    message: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Command',
-  });
+  Command.init(
+    {
+      ControlUnitId: DataTypes.INTEGER,
+      state: DataTypes.BOOLEAN,
+      emiter: DataTypes.STRING,
+      message: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Command",
+      timestamps: true,
+      updatedAt: false,
+    }
+  );
   return Command;
 };
