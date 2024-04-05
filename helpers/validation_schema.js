@@ -1,16 +1,55 @@
 const joi = require("@hapi/joi");
 
-const authSchema = joi.object({
+const registerSchema = joi.object({
+  username: joi.string().required(),
+  password: joi.string().required(),
   email: joi.string().email().lowercase().required(),
-  password: joi.string().min(8).required(),
-  username: joi.string(),
-  firstName: joi.string(),
-  lastName: joi.string(),
   dateOfBirth: joi.date(),
+  fullName: joi.string(),
 });
 
+const loginSchema = joi.object({
+  email: joi.string().email().lowercase().required(),
+  password: joi.string().required(),
+});
 
+const authSchema = joi.object({
+  username: joi.string().required(),
+  password: joi.string().min(8).required(),
+  email: joi.string().email().lowercase().required(),
+  userRights: joi.string().valid("user", "moderator", "admin", "suporter"),
+  fullName: joi.string(),
+  dateOfBirth: joi.date(),
+  gender: joi.string().valid("male", "female", "other"),
+  profile: joi.string().uri(),
+  phoneNumber: joi.string().regex(/\d*$/).min(10),
+  address: joi.string(),
+  city: joi.string(),
+  district: joi.string(),
+  country: joi.string(),
+  postalCode: joi.string().regex(/\d*$/),
+  bio: joi.string(),
+});
+
+const updateSchema = joi.object({
+  email: joi.string().email().lowercase(),
+  username: joi.string(),
+  userRights: joi.string().valid("user", "moderator", "admin", "suporter"),
+  fullName: joi.string(),
+  dateOfBirth: joi.date(),
+  gender: joi.string().valid("male", "female", "other"),
+  phoneNumber: joi.string().regex(/\d*$/).min(10),
+  address: joi.string(),
+  city: joi.string(),
+  district: joi.string(),
+  country: joi.string(),
+  postalCode: joi.string().regex(/\d*$/),
+  bio: joi.string(),
+});
 
 module.exports = {
+  registerSchema,
+  loginSchema,
   authSchema,
+  updateSchema,
 };

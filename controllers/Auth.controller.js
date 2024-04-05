@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 const client = require("../helpers/init_redis");
 
 const models = require("../models");
-const { authSchema } = require("../helpers/validation_schema");
+const { registerSchema, loginSchema } = require("../helpers/validation_schema");
 const {
   signAccessToken,
   signRefreshToken,
@@ -12,8 +12,8 @@ const {
 
 const register = async (req, res, next) => {
   try {
-    const result = await authSchema.validateAsync(req.body);
-    console.log("first", result);
+    const result = await registerSchema.validateAsync(req.body);
+
     const doesExist = await models.User.findOne({
       where: {
         [Op.or]: [{ email: result.email }, { username: result.username }],
@@ -38,7 +38,7 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const result = await authSchema.validateAsync(req.body);
+    const result = await loginSchema.validateAsync(req.body);
 
     const user = await models.User.findOne({ where: { email: result.email } });
     if (!user) throw createError.NotFound("User not registered");
@@ -61,7 +61,7 @@ const refreshToken = async (req, res, next) => {
     const { refreshToken } = req.body;
     if (!refreshToken) throw createError.BadRequest();
     const userId = verifyRefreshToken(refreshToken);
-    console.log(userId);
+
     const accessToken = signAccessToken(userId);
     const refToken = signRefreshToken(userId);
     res.send({ accessToken, refreshToken: refToken });
