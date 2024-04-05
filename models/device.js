@@ -15,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
       Device.hasMany(models.ControlUnit);
       Device.hasMany(models.Balancer);
     }
+
+    canView(user) {
+      return user.role === "admin" || user.id === this.UserId;
+    }
+
+    canModify(user) {
+      return user.id === this.UserId;
+    }
   }
   Device.init(
     {
