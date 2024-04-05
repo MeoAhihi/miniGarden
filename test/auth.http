@@ -1,0 +1,39 @@
+GET http://localhost:3000/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE4MTI1NzYsImV4cCI6MTcxMTgxMjU5MSwiYXVkIjoiODFjODM5ZjQtMWEwNy00MjYxLWJkYTItM2ZlN2Q1NTYxMzUxIiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.RtwciRkKSUIAfFAQny48IfkMn_7_8JXela-IHZNaZhM
+
+### Register
+POST http://localhost:3000/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "nhienlh1@gmail.com",
+    "password": "0770770779",
+    "dateOfBirth": "2001-01-08",
+    "username": "Daisy Ly",
+    "firstName": "Ly",
+    "lastName": "Hong Nhien"
+
+}
+ 
+### Login
+POST http://localhost:3000/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "nhienlh1@gmail.com",
+    "password": "0770770779"
+}
+### Refresh Token
+POST http://localhost:3000/auth/refresh-token HTTP/1.1
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE4MTIzNTksImV4cCI6MTc0MzM2OTk1OSwiYXVkIjoiODFjODM5ZjQtMWEwNy00MjYxLWJkYTItM2ZlN2Q1NTYxMzUxIiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.J-Ya4UKNJQQxcnpZExpFqcTJRxcCG9luW6ahe7sBuGQ"
+}
+### Logout
+DELETE http://localhost:3000/auth/logout HTTP/1.1
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE4MTIzNTksImV4cCI6MTc0MzM2OTk1OSwiYXVkIjoiODFjODM5ZjQtMWEwNy00MjYxLWJkYTItM2ZlN2Q1NTYxMzUxIiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.J-Ya4UKNJQQxcnpZExpFqcTJRxcCG9luW6ahe7sBuGQ"
+}

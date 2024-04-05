@@ -1,0 +1,46 @@
+GET http://localhost:3000/user/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTE0NDMzMjMsImV4cCI6MTcxMTQ0NjkyMywiYXVkIjoiMTkiLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.z7VJwQF80bVLGt-nqMgvsdPyeDVQVxJGTM85fv8HYVU
+###
+POST http://localhost:3000/user/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTE0NDMzMjMsImV4cCI6MTcxMTQ0NjkyMywiYXVkIjoiMTkiLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.z7VJwQF80bVLGt-nqMgvsdPyeDVQVxJGTM85fv8HYVU
+Content-Type: application/json
+
+{
+  "email": "john.Shara@gmail.com",
+  "username": "JohnShara",
+  "password": "123456789",
+  "userRights": "suporter",
+  "fullName": "John Sissy Shara",
+  "dateOfBirth": "1995-01-21",
+  "gender": "female",
+  "profile": "https://img.freepik.com/premium-photo/portrait-asian-woman-blue-suit-isolated-gray-background_1045199-2097.jpg?w=740",
+  "phoneNumber": "1597534268",
+  "address": "111 Mac Dinh Chi",
+  "district": "1",
+  "country": "Vietnam",
+  "postalCode": "70000",
+  "bio": "Good morning guys"
+}
+
+###
+GET http://localhost:3000/user/16 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTE0NDMzMjMsImV4cCI6MTcxMTQ0NjkyMywiYXVkIjoiMTkiLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.z7VJwQF80bVLGt-nqMgvsdPyeDVQVxJGTM85fv8HYVU
+
+###
+PATCH http://localhost:3000/user/21 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTE0NDMzMjMsImV4cCI6MTcxMTQ0NjkyMywiYXVkIjoiMTkiLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.z7VJwQF80bVLGt-nqMgvsdPyeDVQVxJGTM85fv8HYVU
+Content-Type: application/json
+
+{
+    "postalCode": "70001",
+    "bio": "I'm a developer who loves seeing lovers!"
+}
+
+###
+DELETE http://localhost:3000/user/17 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlhdCI6MTcxMTQyNjY5MiwiZXhwIjoxNzExNDMwMjkyLCJhdWQiOiIxNyIsImlzcyI6Im1pbmlnYXJkZW4uY29tIn0.4y9I9okfcv5gA_tkyU4BSg80Jwy0gVTZw0E4NNBlXEA
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE0MjY2OTIsImV4cCI6MTc0Mjk4NDI5MiwiYXVkIjoiMTciLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.z62GxtT_OvQMSz3dAwo2Ig1qLF1k97UUkg2yCIC673U"
+}

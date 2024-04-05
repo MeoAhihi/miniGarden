@@ -1,0 +1,18 @@
+GET http://localhost:3000/device/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTIyMjg3ODEsImV4cCI6MTcxMjIzMjM4MSwiYXVkIjoiOTA0ZjcyM2QtMzlmYS00ZmI0LTkyNGUtMjUzODJmNTEzMzMyIiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.zHauqP6OZ6ON_QmCRS094-Z3PlBvR5xTf2AtdO94FBM
+###
+GET http://localhost:3000/device/111 HTTP/1.1
+ 
+###
+POST http://localhost:3000/device/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Ahihi device",
+    "serial_number": "0651051654065"
+}
+
+###
+DELETE http://localhost:3000/device/112 HTTP/1.1
+
+
