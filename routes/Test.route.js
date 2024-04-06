@@ -1,4 +1,6 @@
 const express = require("express");
+
+const models = require('../models')
 const { verifyAccessToken } = require("../helpers/jwt_helper");
 const { getUser } = require("../helpers/user_helper");
 const router = express.Router();
@@ -17,5 +19,9 @@ router.get("/user/inside", verifyAccessToken, getUser, (req, res) => {
   }
   res.send(req.user);
 });
+
+// router.get('/stock/inside', (req, res) => {
+//   models.stock
+// })
 
 module.exports = router;

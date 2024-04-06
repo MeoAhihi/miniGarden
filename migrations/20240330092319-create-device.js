@@ -19,6 +19,7 @@ module.exports = {
       },
       BSmode: {
         type: Sequelize.ENUM("balancer", "schedule"),
+        default: "schedule",
       },
       StockId: {
         allowNull: false,

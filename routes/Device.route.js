@@ -16,6 +16,8 @@ router.get("/:id", DeviceController.get);
 
 router.post("/", DeviceController.add);
 
+router.put("/:id", DeviceController.update);
+
 router.delete("/:id", DeviceController.remove);
 
 module.exports = router;

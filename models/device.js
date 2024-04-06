@@ -11,9 +11,18 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Device.belongsTo(models.User);
       Device.belongsTo(models.Stock);
-      Device.hasMany(models.Sensor);
-      Device.hasMany(models.ControlUnit);
-      Device.hasMany(models.Balancer);
+      Device.hasMany(models.Sensor, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+      Device.hasMany(models.ControlUnit, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+      Device.hasMany(models.Balancer, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
 
     canView(user) {

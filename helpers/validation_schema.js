@@ -47,9 +47,15 @@ const updateSchema = joi.object({
   bio: joi.string(),
 });
 
+const deviceUpdateSchema = joi.object({
+  name: joi.string(),
+  BSmode: joi.string().valid("schedule", "balancer"),
+});
+
 module.exports = {
   registerSchema,
   loginSchema,
   authSchema,
   updateSchema,
+  deviceUpdateSchema,
 };
