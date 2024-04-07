@@ -26,7 +26,14 @@ const register = async (req, res, next) => {
     const newUser = await models.User.build(result);
     const savedUser = await newUser.save();
 
-    const accessToken = signAccessToken(savedUser.id);
+    const accessToken = signAccessToken(
+      savedUser.id,
+      "user",
+      savedUser.username,
+      savedUser.firstName,
+      savedUser.lastName,
+      process.env.DEFAULT_AVATAR_URL
+    );
     const refreshToken = signRefreshToken(savedUser.id);
 
     res.send({ accessToken, refreshToken });
@@ -46,7 +53,14 @@ const login = async (req, res, next) => {
     const isMatch = await user.isValidPassword(result.password);
     if (!isMatch) throw createError.Unauthorized("Invalid Email/Password");
 
-    const accessToken = signAccessToken(user.id);
+    const accessToken = signAccessToken(
+      user.id,
+      user.role,
+      user.username,
+      user.firstName,
+      user.lastName,
+      user.avatarUrl
+    );
     const refreshToken = signRefreshToken(user.id);
 
     res.send({ accessToken, refreshToken });
@@ -62,7 +76,16 @@ const refreshToken = async (req, res, next) => {
     if (!refreshToken) throw createError.BadRequest();
     const userId = verifyRefreshToken(refreshToken);
 
-    const accessToken = signAccessToken(userId);
+    const user = await models.User.findByPk(userId);
+
+    const accessToken = signAccessToken(
+      userId,
+      user.role,
+      user.username,
+      user.firstName,
+      user.lastName,
+      user.avatarUrl
+    );
     const refToken = signRefreshToken(userId);
     res.send({ accessToken, refreshToken: refToken });
   } catch (error) {
@@ -78,7 +101,7 @@ const logout = async (req, res, next) => {
     const userId = verifyRefreshToken(refreshToken);
 
     const value = await client.DEL(userId);
-    console.log(value);
+
     res.sendStatus(204);
   } catch (error) {
     next(error);

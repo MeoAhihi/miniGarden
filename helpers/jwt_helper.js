@@ -2,13 +2,20 @@ const jwt = require("jsonwebtoken");
 const createError = require("http-errors");
 const client = require("../helpers/init_redis");
 
-const signAccessToken = (userId) => {
-  const payload = {};
+const signAccessToken = (
+  userId,
+  role,
+  username,
+  firstName,
+  lastName,
+  avatarUrl
+) => {
+  const payload = { role, username, firstName, lastName, avatarUrl };
   const secret = process.env.ACCESS_TOKEN_SECRET;
   const option = {
     expiresIn: "1h",
     issuer: "minigarden.com",
-    audience: userId.toString(),
+    audience: userId,
   };
   return jwt.sign(payload, secret, option);
 };
@@ -37,13 +44,13 @@ const signRefreshToken = (userId) => {
   const option = {
     expiresIn: "1y",
     issuer: "minigarden.com",
-    audience: userId.toString(),
+    audience: userId,
   };
 
   const token = jwt.sign(payload, secret, option);
 
   client.SET(
-    userId.toString(),
+    userId,
     token,
     { EX: 365 * 24 * 60 * 60 },
     (err, reply) => {
