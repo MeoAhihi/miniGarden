@@ -3,11 +3,13 @@ const logger = require("morgan");
 const createError = require("http-errors");
 require("dotenv").config();
 
-const { verifyAccessToken } = require("./helpers/jwt_helper");
 const TestRoute = require("./routes/Test.route");
 const AuthRoute = require("./routes/Auth.route");
 const DeviceRoute = require("./routes/Device.route");
 const UserRoute = require("./routes/User.route");
+const { verifyAccessToken } = require("./helpers/jwt_helper");
+const { getUser } = require("./helpers/user_helper");
+// const SensorRoute = require("./routes/Sensor.route");
 
 const app = express();
 
@@ -19,8 +21,9 @@ app.use(express.urlencoded({ extended: false }));
 //Routes
 app.use("/test", TestRoute);
 app.use("/auth", AuthRoute);
-app.use("/device", DeviceRoute);
-app.use("/user", UserRoute);
+app.use("/user", verifyAccessToken, getUser, UserRoute);
+app.use("/user/device", DeviceRoute);
+// app.use("/user/sensor", SensorRoute);
 
 //Error handler
 app.use((req, res, next) => {

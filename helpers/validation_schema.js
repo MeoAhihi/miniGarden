@@ -36,7 +36,7 @@ const authSchema = joi.object({
 const updateSchema = joi.object({
   email: joi.string().email().lowercase(),
   username: joi.string(),
-  role: joi.string().valid("user", "moderator", "admin", "supporter"),
+  // role: joi.string().valid("user", "moderator", "admin", "supporter"),
   firstName: joi.string(),
   lastName: joi.string(),
   dateOfBirth: joi.date(),

@@ -1,0 +1,34 @@
+### Login Admin
+POST http://localhost:3000/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "MeoAhihi@gmail.com",
+  "password": "0835607205"
+}
+
+###
+GET http://localhost:3000/user/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTI0NjQ2OTEsImV4cCI6MTcxMjQ2ODI5MSwiYXVkIjoiM2FlZmQxZTUtZDhiZi00NzU3LWFiNDMtNzk1ZGNjZDQzYWEwIiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.Rw3uZlzI7B_UdjA5TrIYGbT3jWprQHO34RGorvjlJmk
+###
+POST http://localhost:3000/user/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJ1c2VybmFtZSI6Ik1lb0FoaWhpIiwiZmlyc3ROYW1lIjoiTMO9IiwibGFzdE5hbWUiOiJWxKkgUGhvbmciLCJhdmF0YXJVcmwiOm51bGwsImlhdCI6MTcxMjUwNzcwNSwiZXhwIjoxNzEyNTExMzA1LCJhdWQiOiIzYWVmZDFlNS1kOGJmLTQ3NTctYWI0My03OTVkY2NkNDNhYTAiLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.BFuUkbsEUCpH-HBNsTjpPZ0vQd55isDMGdGMEXnj90k
+Content-Type: application/json
+
+{
+  "email": "john.shara@gmail.com",
+  "username": "JohnShara",
+  "password": "123456789",
+  "role": "supporter",
+  "firstName": "John",
+  "lastName": "Sissy Shara",
+  "dateOfBirth": "1995-01-21",
+  "gender": "female",
+  "profile": "https://img.freepik.com/premium-photo/portrait-asian-woman-blue-suit-isolated-gray-background_1045199-2097.jpg?w=740",
+  "phoneNumber": "1597534268",
+  "address": "111 Mac Dinh Chi",
+  "district": "1",
+  "country": "Vietnam",
+  "postalCode": "70000",
+  "bio": "Good morning guys"
+}

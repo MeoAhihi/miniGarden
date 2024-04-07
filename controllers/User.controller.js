@@ -1,12 +1,9 @@
 const createError = require("http-errors");
-const bcrypt = require("bcrypt");
 const { Op } = require("sequelize");
 
 const client = require("../helpers/init_redis");
 const User = require("../models").User;
-const { verifyRefreshToken } = require("../helpers/jwt_helper");
 const { authSchema, updateSchema } = require("../helpers/validation_schema");
-const { message } = require("statuses");
 
 const getUser = async (req, res, next) => {
   const userId = req.params.id;
@@ -71,26 +68,27 @@ const createUser = async (req, res, next) => {
 const getUserById = (req, res, next) => {
   res.json(res.user);
 };
-const updateUser = (req, res, next) => {
-  res.user.set(req.body);
-  res.user.save();
-  res.json({
-    code: 200,
-    message: "User updated successfully",
-    savedUser: res.user,
-  });
+const updateUser = async (req, res, next) => {
+  try {
+    const updateInfo = await updateSchema.validateAsync(req.body);
+    req.user.set(updateInfo);
+    await req.user.save();
+    res.json({
+      code: 200,
+      message: "User updated successfully",
+      savedUser: req.user,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 const deleteUser = async (req, res, next) => {
   try {
-    const { refreshToken } = req.body;
-    if (!refreshToken) return next(createError.BadRequest());
-
-    const userId = verifyRefreshToken(refreshToken);
-    if (userId !== req.user.id) return next(createError.Forbidden());
+    const userId = req.user.id;
 
     await client.DEL(userId);
 
-    res.user.destroy();
+    req.user.destroy();
 
     res.send({
       code: 200,
