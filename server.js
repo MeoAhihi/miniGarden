@@ -4,9 +4,10 @@ const createError = require("http-errors");
 require("dotenv").config();
 
 const { verifyAccessToken } = require("./helpers/jwt_helper");
+const TestRoute = require("./routes/Test.route");
 const AuthRoute = require("./routes/Auth.route");
 const DeviceRoute = require("./routes/Device.route");
-const TestRoute = require("./routes/Test.route");
+const UserRoute = require("./routes/User.route");
 
 const app = express();
 
@@ -15,13 +16,11 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", verifyAccessToken, (req, res) => {
-  res.send("hi");
-});
 //Routes
 app.use("/test", TestRoute);
 app.use("/auth", AuthRoute);
 app.use("/device", DeviceRoute);
+app.use("/user", UserRoute);
 
 //Error handler
 app.use((req, res, next) => {

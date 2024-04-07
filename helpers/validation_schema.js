@@ -5,7 +5,8 @@ const registerSchema = joi.object({
   password: joi.string().required(),
   email: joi.string().email().lowercase().required(),
   dateOfBirth: joi.date(),
-  fullName: joi.string(),
+  firstName: joi.string(),
+  lastName: joi.string(),
 });
 
 const loginSchema = joi.object({
@@ -17,8 +18,9 @@ const authSchema = joi.object({
   username: joi.string().required(),
   password: joi.string().min(8).required(),
   email: joi.string().email().lowercase().required(),
-  userRights: joi.string().valid("user", "moderator", "admin", "suporter"),
-  fullName: joi.string(),
+  role: joi.string().valid("user", "moderator", "admin", "supporter"),
+  firstName: joi.string(),
+  lastName: joi.string(),
   dateOfBirth: joi.date(),
   gender: joi.string().valid("male", "female", "other"),
   profile: joi.string().uri(),
@@ -34,8 +36,9 @@ const authSchema = joi.object({
 const updateSchema = joi.object({
   email: joi.string().email().lowercase(),
   username: joi.string(),
-  userRights: joi.string().valid("user", "moderator", "admin", "suporter"),
-  fullName: joi.string(),
+  role: joi.string().valid("user", "moderator", "admin", "supporter"),
+  firstName: joi.string(),
+  lastName: joi.string(),
   dateOfBirth: joi.date(),
   gender: joi.string().valid("male", "female", "other"),
   phoneNumber: joi.string().regex(/\d*$/).min(10),

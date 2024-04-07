@@ -1,16 +1,27 @@
-GET http://localhost:3000/user/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTE0NDMzMjMsImV4cCI6MTcxMTQ0NjkyMywiYXVkIjoiMTkiLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.z7VJwQF80bVLGt-nqMgvsdPyeDVQVxJGTM85fv8HYVU
-###
-POST http://localhost:3000/user/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTE0NDMzMjMsImV4cCI6MTcxMTQ0NjkyMywiYXVkIjoiMTkiLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.z7VJwQF80bVLGt-nqMgvsdPyeDVQVxJGTM85fv8HYVU
+### Login Admin
+POST http://localhost:3000/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "john.Shara@gmail.com",
+  "email": "MeoAhihi@gmail.com",
+  "password": "0835607205"
+}
+
+###
+GET http://localhost:3000/user/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTI0NjQ2OTEsImV4cCI6MTcxMjQ2ODI5MSwiYXVkIjoiM2FlZmQxZTUtZDhiZi00NzU3LWFiNDMtNzk1ZGNjZDQzYWEwIiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.Rw3uZlzI7B_UdjA5TrIYGbT3jWprQHO34RGorvjlJmk
+###
+POST http://localhost:3000/user/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTI0NjQ2OTEsImV4cCI6MTcxMjQ2ODI5MSwiYXVkIjoiM2FlZmQxZTUtZDhiZi00NzU3LWFiNDMtNzk1ZGNjZDQzYWEwIiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.Rw3uZlzI7B_UdjA5TrIYGbT3jWprQHO34RGorvjlJmk
+Content-Type: application/json
+
+{
+  "email": "john.shara@gmail.com",
   "username": "JohnShara",
   "password": "123456789",
-  "userRights": "suporter",
-  "fullName": "John Sissy Shara",
+  "role": "supporter",
+  "firstName": "John",
+  "lastName": "Sissy Shara",
   "dateOfBirth": "1995-01-21",
   "gender": "female",
   "profile": "https://img.freepik.com/premium-photo/portrait-asian-woman-blue-suit-isolated-gray-background_1045199-2097.jpg?w=740",
@@ -21,26 +32,34 @@ Content-Type: application/json
   "postalCode": "70000",
   "bio": "Good morning guys"
 }
-
-###
-GET http://localhost:3000/user/16 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTE0NDMzMjMsImV4cCI6MTcxMTQ0NjkyMywiYXVkIjoiMTkiLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.z7VJwQF80bVLGt-nqMgvsdPyeDVQVxJGTM85fv8HYVU
-
-###
-PATCH http://localhost:3000/user/21 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTE0NDMzMjMsImV4cCI6MTcxMTQ0NjkyMywiYXVkIjoiMTkiLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.z7VJwQF80bVLGt-nqMgvsdPyeDVQVxJGTM85fv8HYVU
+### Login User
+POST http://localhost:3000/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "postalCode": "70001",
+  "email": "john.shara@gmail.com",
+  "password": "123456789"
+}
+
+###
+GET http://localhost:3000/user/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTI0NjQ3MzAsImV4cCI6MTcxMjQ2ODMzMCwiYXVkIjoiZWRiYmQ3NjQtY2M3Yy00MjlhLWFkY2YtM2ZiZjViNjdkYTA1IiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.DNRpsRdG011uSuv1Sl9rD9TXTM4exCOGz2gzFLZTlHE
+
+###
+PATCH http://localhost:3000/user/942d58d1-fa78-4258-ada1-7018d3e8ef73 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTI0NjQ3MzAsImV4cCI6MTcxMjQ2ODMzMCwiYXVkIjoiZWRiYmQ3NjQtY2M3Yy00MjlhLWFkY2YtM2ZiZjViNjdkYTA1IiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.DNRpsRdG011uSuv1Sl9rD9TXTM4exCOGz2gzFLZTlHE
+Content-Type: application/json
+
+{
+    "postalCode": "70000",
     "bio": "I'm a developer who loves seeing lovers!"
 }
 
 ###
-DELETE http://localhost:3000/user/17 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlhdCI6MTcxMTQyNjY5MiwiZXhwIjoxNzExNDMwMjkyLCJhdWQiOiIxNyIsImlzcyI6Im1pbmlnYXJkZW4uY29tIn0.4y9I9okfcv5gA_tkyU4BSg80Jwy0gVTZw0E4NNBlXEA
+DELETE http://localhost:3000/user/942d58d1-fa78-4258-ada1-7018d3e8ef73 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTI0NjQ3MzAsImV4cCI6MTcxMjQ2ODMzMCwiYXVkIjoiZWRiYmQ3NjQtY2M3Yy00MjlhLWFkY2YtM2ZiZjViNjdkYTA1IiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.DNRpsRdG011uSuv1Sl9rD9TXTM4exCOGz2gzFLZTlHE
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTE0MjY2OTIsImV4cCI6MTc0Mjk4NDI5MiwiYXVkIjoiMTciLCJpc3MiOiJtaW5pZ2FyZGVuLmNvbSJ9.z62GxtT_OvQMSz3dAwo2Ig1qLF1k97UUkg2yCIC673U"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTI0NjQ3MzAsImV4cCI6MTc0NDAyMjMzMCwiYXVkIjoiZWRiYmQ3NjQtY2M3Yy00MjlhLWFkY2YtM2ZiZjViNjdkYTA1IiwiaXNzIjoibWluaWdhcmRlbi5jb20ifQ.MHD3F0q2QeGPnsvUpyumro5HC7pIfhiml8lJV-b3ZHc"
 }

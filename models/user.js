@@ -18,7 +18,11 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     canViewUser(viewer) {
-      return viewer.userRights === "admin" || viewer.aud === this.id.toString();
+      return viewer.role === "admin" || viewer.id === this.id;
+    }
+
+    canModifyUser(viewer) {
+      return viewer.id === this.id;
     }
   }
   User.init(
@@ -58,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
         beforeSave: async (user, options) => {
           const salt = await bcrypt.genSalt(10);
           user.passwordHash = await bcrypt.hash(user.passwordHash, salt);
-        }
+        },
       },
     }
   );
