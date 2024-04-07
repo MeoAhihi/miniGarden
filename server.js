@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/test", TestRoute);
 app.use("/auth", AuthRoute);
 app.use("/user", verifyAccessToken, getUser, UserRoute);
-app.use("/user/device", DeviceRoute);
+app.use("/user/device", verifyAccessToken, DeviceRoute);
 // app.use("/user/sensor", SensorRoute);
 
 //Error handler

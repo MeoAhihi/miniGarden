@@ -1,51 +1,85 @@
+
 const createError = require("http-errors");
 
 const models = require("../models");
-const { deviceUpdateSchema } = require("../helpers/validation_schema");
+const {
+  deviceUpdateSchema,
+  deviceCreateSchema,
+} = require("../helpers/validation_schema");
+
+const authViewDevice = async (req, res, next) => {
+  const user = req.user;
+  if (!res.device?.canView(user)) {
+    return next(createError.Forbidden("User unable to view device"));
+  }
+  next();
+};
+
+const authModifyDevice = async (req, res, next) => {
+  const user = req.user;
+  if (!res.device?.canModify(user)) {
+    return next(createError.Forbidden("User unable to view device"));
+  }
+  next();
+};
 
 const index = async (req, res) => {
-  const devices = await req.user.getDevices();
+  const userId = req.payload.aud;
+  const devices = await models.Device.findAll({
+    where: { UserId: userId },
+  });
   res.send(devices);
 };
 
-const get = async (req, res, next) => {
+const getDevice = async (req, res, next) => {
   const deviceId = req.params.id;
-  const device = await models.Device.findByPk(deviceId);
+  res.device = await models.Device.findByPk(deviceId, {
+    include: {
+      model: models.Stock,
+      attributes: ["brand", "name", "description"],
+    },
+  });
 
-  if (!device?.canView(req.user)) return next(createError.Forbidden());
-  res.send(device);
+  if (!res.device) return next(createError.NotFound("No device found"));
+  if (!res.device.canView(req.user))
+    return next(createError.Forbidden("User unable to access device"));
+  next();
+};
+
+const get = async (req, res, next) => {
+  res.send(res.device);
 };
 
 const add = async (req, res, next) => {
-  const DeviceInfo = req.body;
+  try {
+    const DeviceInfo = await deviceCreateSchema.validateAsync(req.body);
 
-  const matchDevice = await models.Stock.findByPk(DeviceInfo.StockId);
-  if (!matchDevice) return next(createError.NotFound("Stock not found"));
+    const matchStock = await models.Stock.findByPk(DeviceInfo.StockId);
+    if (!matchStock) return next(createError.NotFound("Stock not found"));
 
-  const savedDevice = await req.user.createDevice({
-    UserId: req.payload.aud,
-    BSmode: "schedule",
-    ...DeviceInfo,
-  });
+    const savedDevice = await models.Device.create({
+      UserId: req.payload.aud,
+      name: matchStock.name,
+      BSmode: "schedule",
+      ...DeviceInfo,
+    });
 
-  res.send(savedDevice);
+    res
+      .status(201)
+      .send({ code: 201, message: "Device added successfully", savedDevice });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const update = async (req, res, next) => {
   try {
-    const deviceId = req.params.id;
-    const device = await models.Device.findByPk(deviceId);
+    const device = res.device;
 
     const deviceUpdate = await deviceUpdateSchema.validateAsync(req.body);
 
-    if (!device) {
-      return next(createError.NotFound("No Device found"));
-    }
-    if (!device.canModify(req.user)) {
-      return next(createError.Forbidden("User unabled to update device"));
-    }
     if (Object.keys(deviceUpdate).length === 0) {
-      return res.status(304).send("No updation");
+      return res.sendStatus(304);
     }
 
     device.set(deviceUpdate);
@@ -61,23 +95,26 @@ const update = async (req, res, next) => {
 };
 
 const remove = async (req, res, next) => {
-  const deviceId = req.params.id;
-  const device = await models.Device.findByPk(deviceId);
+  const device = res.device;
 
-  if (!device) {
-    return next(createError.NotFound("No Device found"));
-  }
   if (!device.canModify(req.user)) {
     return next(createError.Forbidden("User isn't allowed to delete device"));
   }
 
   await device.destroy();
-  res.send({ message: "deleted device " + deviceId });
+  res.send({
+    code: 200,
+    message: "Device deleted successfully",
+    deletedDevice: device,
+  });
 };
 
 module.exports = {
+  authViewDevice,
+  authModifyDevice,
   index,
   get,
+  getDevice,
   add,
   update,
   remove,

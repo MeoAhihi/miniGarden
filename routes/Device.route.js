@@ -2,22 +2,22 @@ const express = require("express");
 const router = express.Router();
 
 const DeviceController = require("../controllers/Device.controller");
-const { verifyAccessToken } = require("../helpers/jwt_helper");
-const { getUser } = require("../helpers/user_helper");
 
-// Make sure user loged in and get their id
-router.use(verifyAccessToken);
-// Review the user
-router.use(getUser);
+/**
+ * /user route require req.payload
+ * (contain auth info) to work
+ *
+ * wherever you use this route,
+ * remember middlewares verifyAccessToken
+ */
 
-router.get("/", DeviceController.index);
+router.route("/").get(DeviceController.index).post(DeviceController.add);
 
-router.get("/:id", DeviceController.get);
-
-router.post("/", DeviceController.add);
-
-router.put("/:id", DeviceController.update);
-
-router.delete("/:id", DeviceController.remove);
+router
+  .route("/:id")
+  .all(DeviceController.getDevice)
+  .get(DeviceController.get)
+  .patch(DeviceController.update)
+  .delete(DeviceController.remove);
 
 module.exports = router;

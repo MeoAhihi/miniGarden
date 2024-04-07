@@ -50,6 +50,12 @@ const updateSchema = joi.object({
   bio: joi.string(),
 });
 
+const deviceCreateSchema = joi.object({
+  name: joi.string(),
+  BSmode: joi.string().valid("schedule", "balancer"),
+  StockId: joi.number().required(),
+});
+
 const deviceUpdateSchema = joi.object({
   name: joi.string(),
   BSmode: joi.string().valid("schedule", "balancer"),
@@ -60,5 +66,6 @@ module.exports = {
   loginSchema,
   authSchema,
   updateSchema,
+  deviceCreateSchema,
   deviceUpdateSchema,
 };
