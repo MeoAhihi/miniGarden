@@ -61,6 +61,15 @@ const deviceUpdateSchema = joi.object({
   BSmode: joi.string().valid("schedule", "balancer"),
 });
 
+const sensorCreateSchema = joi.object({
+  name: joi.string(),
+  StockId: joi.number().required(),
+});
+
+const sensorUpdateSchema = joi.object({
+  name: joi.string(),
+});
+
 module.exports = {
   registerSchema,
   loginSchema,
@@ -68,4 +77,6 @@ module.exports = {
   updateSchema,
   deviceCreateSchema,
   deviceUpdateSchema,
+  sensorCreateSchema,
+  sensorUpdateSchema,
 };

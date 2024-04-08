@@ -19,7 +19,22 @@ const roleIs = (role) => {
   };
 };
 
+const authUserDevice = async (req, res, next) => {
+  const userId = req.payload.aud;
+  const deviceId = req.params.deviceId;
+
+  const deviceCount = await models.Device.count({
+    where: { id: deviceId, UserId: userId },
+  });
+
+  if (!deviceCount) return next(createError.NotFound("Device not found"));
+
+  req.deviceId = req.params.deviceId;
+  next();
+};
+
 module.exports = {
   getUser,
   roleIs,
+  authUserDevice,
 };

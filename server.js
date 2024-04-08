@@ -4,13 +4,12 @@ const createError = require("http-errors");
 require("dotenv").config();
 
 const { verifyAccessToken } = require("./helpers/jwt_helper");
-const { getUser } = require("./helpers/user_helper");
+const { getUser, authUserDevice } = require("./helpers/user_helper");
 const TestRoute = require("./routes/Test.route");
 const AuthRoute = require("./routes/Auth.route");
 const DeviceRoute = require("./routes/Device.route");
 const UserRoute = require("./routes/User.route");
-// const SensorRoute = require("./routes/Sensor.route");
-const { getDevice } = require("./controllers/Device.controller");
+const SensorRoute = require("./routes/Sensor.route");
 
 const app = express();
 
@@ -24,7 +23,7 @@ app.use("/test", TestRoute);
 app.use("/auth", AuthRoute);
 app.use("/user", verifyAccessToken, getUser, UserRoute);
 app.use("/user/device", verifyAccessToken, DeviceRoute);
-// app.use("/user/device/:deviceId/sensor", verifyAccessToken, getDevice, SensorRoute);
+app.use("/user/device/:deviceId/sensor", verifyAccessToken, authUserDevice, SensorRoute);
 
 //Error handler
 app.use((req, res, next) => {
