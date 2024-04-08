@@ -14,7 +14,7 @@ const DeviceController = require("../controllers/Device.controller");
 router.route("/").get(DeviceController.index).post(DeviceController.add);
 
 router
-  .route("/:id")
+  .route("/:deviceId")
   .all(DeviceController.getDevice)
   .get(DeviceController.get)
   .patch(DeviceController.update)

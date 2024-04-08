@@ -32,7 +32,7 @@ const index = async (req, res) => {
 };
 
 const getDevice = async (req, res, next) => {
-  const deviceId = req.params.id;
+  const deviceId = req.params.deviceId;
   res.device = await models.Device.findByPk(deviceId, {
     include: {
       model: models.Stock,
