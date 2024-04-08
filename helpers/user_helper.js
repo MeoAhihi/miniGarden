@@ -33,8 +33,37 @@ const authUserDevice = async (req, res, next) => {
   next();
 };
 
+const authDeviceSensor = async (req, res, next) => {
+  const { deviceId, sensorId } = req.params;
+
+  const sensorCount = await models.Sensor.count({
+    where: { id: sensorId, DeviceId: deviceId },
+  });
+
+  if (!sensorCount) return next(createError.NotFound("Sensor not found"));
+
+  req.sensorId = req.params.sensorId;
+  next();
+};
+
+const authDeviceControlUnit = async (req, res, next) => {
+  const { deviceId, controlUnitId } = req.params;
+
+  const controlUnitCount = await models.ControlUnit.count({
+    where: { id: controlUnitId, DeviceId: deviceId },
+  });
+
+  if (!controlUnitCount)
+    return next(createError.NotFound("Control Unit not found"));
+
+  req.controlUnitId = req.params.controlUnitId;
+  next();
+};
+
 module.exports = {
   getUser,
   roleIs,
   authUserDevice,
+  authDeviceSensor,
+  authDeviceControlUnit,
 };

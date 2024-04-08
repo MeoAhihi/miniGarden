@@ -4,13 +4,15 @@ const createError = require("http-errors");
 require("dotenv").config();
 
 const { verifyAccessToken } = require("./helpers/jwt_helper");
-const { getUser, authUserDevice } = require("./helpers/user_helper");
+const { getUser, authUserDevice, authDeviceSensor } = require("./helpers/user_helper");
 const TestRoute = require("./routes/Test.route");
 const AuthRoute = require("./routes/Auth.route");
 const DeviceRoute = require("./routes/Device.route");
 const UserRoute = require("./routes/User.route");
 const SensorRoute = require("./routes/Sensor.route");
 const ControlUnitRoute = require("./routes/ControlUnit.route");
+const SensorReadingRoute = require("./routes/SensorReading.route");
+
 const app = express();
 
 // Middlewares
@@ -34,6 +36,13 @@ app.use(
   verifyAccessToken,
   authUserDevice,
   ControlUnitRoute
+);
+app.use(
+  "/user/device/:deviceId/sensor/:sensorId/reading",
+  verifyAccessToken,
+  authUserDevice,
+  authDeviceSensor,
+  SensorReadingRoute
 );
 
 //Error handler
