@@ -70,6 +70,15 @@ const sensorUpdateSchema = joi.object({
   name: joi.string(),
 });
 
+const controlUnitCreateSchema = joi.object({
+  name: joi.string(),
+  StockId: joi.number().required(),
+});
+
+const controlUnitUpdateSchema = joi.object({
+  name: joi.string(),
+});
+
 module.exports = {
   registerSchema,
   loginSchema,
@@ -79,4 +88,6 @@ module.exports = {
   deviceUpdateSchema,
   sensorCreateSchema,
   sensorUpdateSchema,
+  controlUnitCreateSchema,
+  controlUnitUpdateSchema,
 };

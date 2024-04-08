@@ -10,7 +10,7 @@ const AuthRoute = require("./routes/Auth.route");
 const DeviceRoute = require("./routes/Device.route");
 const UserRoute = require("./routes/User.route");
 const SensorRoute = require("./routes/Sensor.route");
-
+const ControlUnitRoute = require("./routes/ControlUnit.route");
 const app = express();
 
 // Middlewares
@@ -23,7 +23,18 @@ app.use("/test", TestRoute);
 app.use("/auth", AuthRoute);
 app.use("/user", verifyAccessToken, getUser, UserRoute);
 app.use("/user/device", verifyAccessToken, DeviceRoute);
-app.use("/user/device/:deviceId/sensor", verifyAccessToken, authUserDevice, SensorRoute);
+app.use(
+  "/user/device/:deviceId/sensor",
+  verifyAccessToken,
+  authUserDevice,
+  SensorRoute
+);
+app.use(
+  "/user/device/:deviceId/control-unit",
+  verifyAccessToken,
+  authUserDevice,
+  ControlUnitRoute
+);
 
 //Error handler
 app.use((req, res, next) => {
