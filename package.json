@@ -108,6 +108,7 @@
     "qs": "^6.11.0",
     "range-parser": "^1.2.1",
     "raw-body": "^2.5.2",
+    "react-jwt": "^1.2.1",
     "redis": "^4.6.13",
     "retry-as-promised": "^7.0.4",
     "rimraf": "^3.0.2",

@@ -19,11 +19,9 @@ const SensorRoute = require("./routes/Sensor.route");
 const ControlUnitRoute = require("./routes/ControlUnit.route");
 const SensorReadingRoute = require("./routes/SensorReading.route");
 const CommandRoute = require("./routes/Command.route");
-const { transform } = require("dottie");
 
 const app = express();
-const appws = expressWs(app);
-const clients = appws.getWss().clients;
+const appWs = expressWs(app);
 // Middlewares
 app.use(logger("dev"));
 app.use(express.json());
@@ -55,32 +53,19 @@ app.use(
 );
 
 app.use(
-  "/user/device/:deviceId/control-unit/:controlUnitId/",
-  verifyAccessToken,
-  authUserDevice,
-  authDeviceControlUnit,
+  "/ws",
+  (req, res, next) => {
+    req.clients = appWs.getWss().clients;
+    next();
+  },
+  // verifyAccessToken,
+  // authUserDevice,
+  // authDeviceControlUnit,
   CommandRoute
 );
-app.ws("/", (ws, req) => {
-  console.log("Connected");
-  ws.send("Connected");
 
-  ws.on("close", (msg) => {
-    console.log("disconnected");
-  });
-
-  ws.on("message", (msg) => {
-    transformer = {
-      2: "0",
-      8: "1",
-      20: "2",
-    };
-    command = JSON.parse(msg);
-    clients.forEach((client) => {
-      console.log("client message:", command);
-      client.send(transformer[command.controlUnitId]);
-    });
-  });
+app.ws("/wsx", (ws, req) => {
+  console.log(appWs.getWss().clients);
 });
 
 //Error handler
